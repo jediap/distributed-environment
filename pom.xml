@@ -31,5 +31,6 @@
         <module>distributed-environment-server</module>
         <module>eureka-server</module>
         <module>gateway-server</module>
+        <module>device-service</module>
     </modules>
 </project>
