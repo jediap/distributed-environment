@@ -8,9 +8,9 @@ spring:
     config:
       server:
         git:
-          uri: https://github.com/jediap/distributed-environment-config
-          username: jsdiazsantos@gmail.com
-          password: Xus_001059
+          uri: https://github.com/jediap/local-config-server-configuration
+          #username: xxx
+          #password: xxx
 
   # Spring properties
   profiles:
