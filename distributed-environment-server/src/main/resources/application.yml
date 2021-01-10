@@ -1,0 +1,17 @@
+# HTTP Server
+server:
+  port: 8888
+
+spring:
+  # Spring Cloud Config Server Repository
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/jediap/distributed-environment-config
+          username: jsdiazsantos@gmail.com
+          password: Xus_001059
+
+  # Spring properties
+  profiles:
+    active: local
