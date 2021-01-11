@@ -20,8 +20,6 @@ services:
     image: distributed-environment-server:0.0.1-SNAPSHOT
     ports:
       - 8888:8888
-    environment:
-      - PORT_NUMBER=8888
     networks:
       - core-config-server_app_net
 
@@ -29,8 +27,6 @@ services:
     image: eureka-server:0.0.1-SNAPSHOT
     ports:
       - 8761:8761
-    environment:
-      - PORT_NUMBER=8761
     depends_on:
       - distributed-environment-server
     networks:
