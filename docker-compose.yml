@@ -1,21 +1,5 @@
 version: '3.7'
 services:
-  postgres:
-    image: library/postgres:13.1
-    healthcheck:
-      test: psql postgres --command "select 1"
-    stop_grace_period: 120s
-    ports:
-      - "15432:5432"
-    environment:
-      POSTGRES_USER: root
-      POSTGRES_PASSWORD: root
-      POSTGRES_DB: seed_data
-    volumes:
-      - /var/lib/postgresql/data
-    networks:
-      - core-config-server_app_net
-
   mongo:
     image: mongo
     ports:
@@ -23,21 +7,13 @@ services:
     networks:
       - core-config-server_app_net
 
-  elastic:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.10.2
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.5.0
     container_name: elastic
     environment:
-      - node.name=elastic
-      - cluster.name=es-docker-cluster
-      #- discovery.seed_hosts=es02,es03
-      #- cluster.initial_master_nodes=es01,es02,es03
-      - cluster.initial_master_nodes=elastic
+      - discovery.type=single-node
       - bootstrap.memory_lock=true
-      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
+      - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
     volumes:
       - /var/lib/elasticsearch/data
     ports:
@@ -51,6 +27,53 @@ services:
     container_name: dejavu
     ports:
       - "1358:1358"
+    networks:
+      - core-config-server_app_net
+
+  zookeeper:
+    image: wurstmeister/zookeeper
+    ports:
+      - "2181"
+    hostname: zookeeper
+    networks:
+      - core-config-server_app_net
+
+  kafka:
+    image: wurstmeister/kafka
+    command: [ start-kafka.sh ]
+    ports:
+      - "9092"
+    hostname: kafka
+    environment:
+      KAFKA_ADVERTISED_HOST_NAME: kafka
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_PORT: 9092
+    volumes:
+      - /var/lib/kafka/data
+    depends_on:
+      - "zookeeper"
+    networks:
+      - core-config-server_app_net
+
+  logstash:
+    image: docker.elastic.co/logstash/logstash:7.5.0
+    container_name: logstash
+    environment:
+      - "ELASTIC_PASSWORD=idrica"
+    ports: [ '9600:9600' ]
+    depends_on: [ 'elasticsearch' ]
+    volumes:
+      - /var/lib/logstash/data
+      - /var/lib/log/data
+    networks:
+      - core-config-server_app_net
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.5.0
+    container_name: kibana
+    environment:
+      - "ELASTIC_PASSWORD=idrica"
+    ports: [ '5601:5601' ]
     networks:
       - core-config-server_app_net
 
