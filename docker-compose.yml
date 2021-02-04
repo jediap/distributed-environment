@@ -53,18 +53,18 @@ services:
     networks:
       - core-config-server_app_net
 
-  logstash:
-    image: docker.elastic.co/logstash/logstash:7.5.0
-    container_name: logstash
-    environment:
-      - "ELASTIC_PASSWORD=password"
-    ports: [ '9600:9600' ]
-    depends_on: [ 'elasticsearch' ]
-    volumes:
-      - /var/lib/logstash/data
-      - /var/lib/log/data
-    networks:
-      - core-config-server_app_net
+  #logstash:
+    #  image: docker.elastic.co/logstash/logstash:7.5.0
+    # container_name: logstash
+      #environment:
+      #- "ELASTIC_PASSWORD=password"
+    #ports: [ '9600:9600' ]
+    #depends_on: [ 'elasticsearch' ]
+      #volumes:
+      # - /var/lib/logstash/data
+      #- /var/lib/log/data
+      #networks:
+      #- core-config-server_app_net
 
   kibana:
     image: docker.elastic.co/kibana/kibana:7.5.0
