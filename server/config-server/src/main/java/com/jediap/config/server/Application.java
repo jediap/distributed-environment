@@ -1,4 +1,4 @@
-package com.jediap.distributed.environment.server;
+package com.jediap.config.server;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

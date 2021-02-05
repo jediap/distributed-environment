@@ -10,11 +10,11 @@
         <version>2.3.7.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.jediap.distributed.environment.server</groupId>
-    <artifactId>distributed-environment-server</artifactId>
+    <groupId>com.jediap.config.server</groupId>
+    <artifactId>config-server</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>distributed-environment-server</name>
-    <description>distributed-environment-server project for Spring Boot</description>
+    <name>config-server</name>
+    <description>config-server project for Spring Boot</description>
 
     <properties>
         <java.version>11</java.version>
