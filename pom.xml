@@ -19,5 +19,7 @@
         <module>distributed-environment-server</module>
         <module>eureka-server</module>
         <module>gateway-server</module>
+        <module>infrastructure</module>
+        <module>worker-service</module>
     </modules>
 </project>
