@@ -1,4 +1,4 @@
-package com.jediap.client.service.controller;
+package com.jediap.client.service.web.rest;
 
 import com.jediap.client.service.domain.Client;
 import com.jediap.infrastructure.elastic.ElasticsearchRepository;
@@ -8,7 +8,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
@@ -33,9 +33,13 @@ public class ClientController {
 
     mongoDbEventStorePublisher.publish(UUID.randomUUID().toString(), UUID.randomUUID().toString(), "name", "occurredOn", "version", "body", "meta");
 
-    elasticsearchRepository.save(new Client(UUID.randomUUID().toString(), UUID.randomUUID().toString()),CLIENT_INDEX);
+    elasticsearchRepository.persistence(new Client(UUID.randomUUID().toString(), UUID.randomUUID().toString()),CLIENT_INDEX);
 
-    List<Client> list = elasticsearchRepository.find(PageRequest.of(0, 10), Client.class);
+    elasticsearchRepository.persistence(new Client("941125e7-afae-486e-9fc7-57b01cc5bfa4", "jesus"),CLIENT_INDEX);
+
+    elasticsearchRepository.delete("f9a0db32-0b3f-4134-a0cd-163a9e799e54", CLIENT_INDEX);
+
+    List<Client> list = elasticsearchRepository.find(new HashMap<>(), PageRequest.of(0, 100), Client.class);
 
     list.stream().forEach(source -> {
       System.out.println("ID "+source.id()+" NAME "+source.name());

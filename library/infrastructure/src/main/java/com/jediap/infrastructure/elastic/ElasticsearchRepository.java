@@ -25,13 +25,8 @@ public class ElasticsearchRepository {
     this.elasticsearchRestTemplate = elasticsearchRestTemplate;
   }
 
-  public <E> void save(E entityClass, String index) {
-    IndexQuery indexQuery = new IndexQueryBuilder().withObject(entityClass).build();
-    elasticsearchRestTemplate.index(indexQuery, IndexCoordinates.of(index));
-  }
-
-  public <E> List<E> find(final PageRequest pageRequest, final Class<E> targetVOClass) {
-    return find(new HashMap<>(), pageRequest,targetVOClass);
+  public void delete(String id, String index) {
+    elasticsearchRestTemplate.delete(id, IndexCoordinates.of(index));
   }
 
   public <E> List<E> find(final Map<String, Object> filters, final PageRequest pageRequest, final Class<E> targetVOClass) {
@@ -59,5 +54,10 @@ public class ElasticsearchRepository {
       list.add(source.getContent());
     });
     return list;
+  }
+
+  public <E> void persistence(E entityClass, String index) {
+    IndexQuery indexQuery = new IndexQueryBuilder().withObject(entityClass).build();
+    elasticsearchRestTemplate.index(indexQuery, IndexCoordinates.of(index));
   }
 }
