@@ -1,4 +1,4 @@
-package com.jediap.infrastructure.elastic.persistence;
+package com.jediap.infrastructure.elastic.config;
 
 import com.jediap.infrastructure.context.SpringContextParameters;
 import org.elasticsearch.client.RestHighLevelClient;

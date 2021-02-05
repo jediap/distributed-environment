@@ -1,4 +1,4 @@
-package com.jediap.infrastructure.mongodb.persistencie;
+package com.jediap.infrastructure.mongodb.config;
 
 import com.jediap.infrastructure.context.SpringContextParameters;
 import com.mongodb.client.MongoClient;

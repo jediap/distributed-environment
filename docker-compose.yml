@@ -37,15 +37,6 @@ services:
     networks:
       - core-config-server_app_net
 
-  # elasticsearch browser
-  dejavu:
-    image: appbaseio/dejavu:3.0.0-alpha
-    container_name: dejavu
-    ports:
-      - "1358:1358"
-    networks:
-      - core-config-server_app_net
-
   zookeeper:
     image: wurstmeister/zookeeper
     ports:
