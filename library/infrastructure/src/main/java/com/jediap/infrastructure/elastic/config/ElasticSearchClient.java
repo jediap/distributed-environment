@@ -6,12 +6,10 @@ import org.springframework.data.elasticsearch.client.RestClients;
 
 public class ElasticSearchClient {
 
-    public RestHighLevelClient client(String connection) {
-        ClientConfiguration clientConfiguration =
-                ClientConfiguration.builder()
-                        .connectedTo(connection)
-                        .build();
+  public RestHighLevelClient client(String connection) {
+    ClientConfiguration clientConfiguration =
+        ClientConfiguration.builder().connectedTo(connection).build();
 
-        return RestClients.create(clientConfiguration).rest();
-    }
+    return RestClients.create(clientConfiguration).rest();
+  }
 }

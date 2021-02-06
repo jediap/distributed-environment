@@ -7,12 +7,12 @@ import com.mongodb.client.MongoClients;
 
 public class MongoDbClient {
 
-    public MongoClient client(String connection, String authSource) {
-        ConnectionString connectionString = new ConnectionString(String.format("mongodb://%s?authSource="+authSource, connection));
-        MongoClientSettings mongoClientSettings = MongoClientSettings.builder()
-                .applyConnectionString(connectionString)
-                .build();
+  public MongoClient client(String connection, String authSource) {
+    ConnectionString connectionString =
+        new ConnectionString(String.format("mongodb://%s?authSource=" + authSource, connection));
+    MongoClientSettings mongoClientSettings =
+        MongoClientSettings.builder().applyConnectionString(connectionString).build();
 
-        return MongoClients.create(mongoClientSettings);
-    }
+    return MongoClients.create(mongoClientSettings);
+  }
 }

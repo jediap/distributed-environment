@@ -1,4 +1,3 @@
 package com.jediap.infrastructure.postgresql.config;
 
-public class PostgresqlDbClient {
-}
+public class PostgresqlDbClient {}

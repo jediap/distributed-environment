@@ -1,4 +1,3 @@
 package com.jediap.infrastructure.postgresql;
 
-public class PostgresqlRepository {
-}
+public interface PostgresqlRepository {}

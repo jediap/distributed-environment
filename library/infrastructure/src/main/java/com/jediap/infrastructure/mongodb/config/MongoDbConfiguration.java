@@ -13,37 +13,37 @@ import java.util.Collections;
 @Configuration
 public class MongoDbConfiguration extends AbstractMongoClientConfiguration {
 
-    private final SpringContextParameters parameter;
+  private final SpringContextParameters parameter;
 
-    public MongoDbConfiguration(SpringContextParameters parameter) {
-        this.parameter = parameter;
-    }
+  public MongoDbConfiguration(SpringContextParameters parameter) {
+    this.parameter = parameter;
+  }
 
-    @Override
-    protected String getDatabaseName() {
-        return "mdb_event_store";
-    }
+  @Override
+  protected String getDatabaseName() {
+    return "mdb_event_store";
+  }
 
-    @Override
-    protected Collection<String> getMappingBasePackages() {
-        return Collections.singleton("com.jediap");
-    }
+  @Override
+  protected Collection<String> getMappingBasePackages() {
+    return Collections.singleton("com.jediap");
+  }
 
-    @Bean
-    public MongoClient mongoClient() {
-        return new MongoDbClient().client(String.format(
-                //"%s:%s@%s:%s/%s",
+  @Bean
+  public MongoClient mongoClient() {
+    return new MongoDbClient()
+        .client(
+            String.format(
+                // "%s:%s@%s:%s/%s",
                 "%s:%s/%s",
                 // "", parameter.EVENT_STORE_USER
                 // "", parameter.EVENT_STORE_PASS
-                parameter.EVENT_STORE_HOST_DB,
-                parameter.EVENT_STORE_PORT_DB,
-                getDatabaseName()
-        ),parameter.EVENT_STORE_AUTHENTICATION_DATABASE);
-    }
+                parameter.EVENT_STORE_HOST_DB, parameter.EVENT_STORE_PORT_DB, getDatabaseName()),
+            parameter.EVENT_STORE_AUTHENTICATION_DATABASE);
+  }
 
-    @Bean
-    public MongoTemplate mongoTemplate() {
-        return new MongoTemplate(mongoClient(), getDatabaseName());
-    }
+  @Bean
+  public MongoTemplate mongoTemplate() {
+    return new MongoTemplate(mongoClient(), getDatabaseName());
+  }
 }

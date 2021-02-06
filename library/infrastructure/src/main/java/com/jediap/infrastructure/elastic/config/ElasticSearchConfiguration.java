@@ -17,7 +17,8 @@ public class ElasticSearchConfiguration {
 
   @Bean
   public RestHighLevelClient client() {
-    return new ElasticSearchClient().client(parameter.ELASTIC_HOST_DB + ":" + parameter.ELASTIC_PORT_DB);
+    return new ElasticSearchClient()
+        .client(parameter.ELASTIC_HOST_DB + ":" + parameter.ELASTIC_PORT_DB);
   }
 
   @Bean

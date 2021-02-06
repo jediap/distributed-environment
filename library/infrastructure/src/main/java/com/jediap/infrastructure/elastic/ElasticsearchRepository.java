@@ -10,7 +10,6 @@ import org.springframework.data.elasticsearch.core.query.*;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -29,7 +28,10 @@ public class ElasticsearchRepository {
     elasticsearchRestTemplate.delete(id, IndexCoordinates.of(index));
   }
 
-  public <E> List<E> find(final Map<String, Object> filters, final PageRequest pageRequest, final Class<E> targetVOClass) {
+  public <E> List<E> find(
+      final Map<String, Object> filters,
+      final PageRequest pageRequest,
+      final Class<E> targetVOClass) {
     BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
     filters
         .entrySet()
@@ -50,9 +52,11 @@ public class ElasticsearchRepository {
     SearchHits<E> result = elasticsearchRestTemplate.search(searchQuery, targetVOClass);
 
     List<E> list = new ArrayList<>();
-    result.getSearchHits().stream().forEach(source -> {
-      list.add(source.getContent());
-    });
+    result.getSearchHits().stream()
+        .forEach(
+            source -> {
+              list.add(source.getContent());
+            });
     return list;
   }
 
